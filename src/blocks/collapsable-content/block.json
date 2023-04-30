@@ -1,0 +1,42 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 2,
+    "name": "louwie-blocks/collapsable-content",
+    "version": "0.1.0",
+    "title": "Collapsable Content",
+    "category": "layout",
+    "icon": "smiley",
+    "description": "Collapsable content.",
+    "supports": {
+        "html": false,
+        "__experimentalOnEnter": true,
+        "__experimentalSettings": true,
+        "align": [
+            "wide",
+            "full"
+        ],
+        "__experimentalLayout": {
+            "allowSizingOnChildren": true
+        },
+        "spacing": {
+            "margin": [
+                "top",
+                "bottom"
+            ]
+        }
+    },
+    "attributes": {
+        "id": {
+            "type": "string",
+            "default": ""
+        },
+        "group": {
+            "type": "string",
+            "default": ""
+        }
+    },
+    "textdomain": "louwie-blocks",
+    "editorScript": "file:./index.js",
+    "editorStyle": "file:./index.css",
+    "style": "file:./style-index.css"
+}
