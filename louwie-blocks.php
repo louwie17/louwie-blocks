@@ -44,6 +44,13 @@ add_filter( 'render_block', function( $block_content, $block ) {
 	// If this is a dashicon block, enqueue the dashicons script.
 	if ( 'louwie-blocks/dashicon' === $block['blockName'] ) {
         wp_enqueue_style('dashicons');
+	} else if ( 'louwie-blocks/collapsable-content' === $block['blockName'] ||
+		'louwie-blocks/collapsable-toggle' === $block['blockName']	
+	) {
+		wp_enqueue_script(
+			'louwie-blocks-collapsable',
+			plugin_dir_url( __FILE__ ) . '/build/collapsable.js'
+		);
 	}
 
 	// Return the block content.

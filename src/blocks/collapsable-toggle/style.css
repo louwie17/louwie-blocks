@@ -1,0 +1,46 @@
+.gh-collapsable-content-arrow {
+    display: flex;
+    align-items: center;
+}
+
+
+.gh-collapsable-content-arrow .gh-collapsable-arrow {
+    width: 1.25rem;
+    height: 1.25rem;
+    display: inline-block;
+    position: relative;
+    margin-right: 1rem;
+}
+
+.gh-collapsable-content-arrow .gh-collapsable-arrow span {
+    top: .5rem;
+    position: absolute;
+    width: .75rem;
+    height: .1rem;
+    background-color: #efefef;
+    display: inline-block;
+    transition: all .2s ease;
+}
+
+.gh-collapsable-content-arrow .gh-collapsable-arrow span:first-of-type {
+    transform: rotate(-45deg);
+    right: 0;
+    transform-origin: bottom right;
+}
+
+.gh-collapsable-content-arrow .gh-collapsable-arrow span:last-of-type {
+    transform: rotate(45deg);
+    right: 0;
+    transform-origin: top right;
+}
+
+.gh-collapsable-content-arrow.gh-collapsable-shown .gh-collapsable-arrow span:first-of-type {
+    transform: rotate(45deg);
+    right: auto;
+    transform-origin: unset;
+}
+
+.gh-collapsable-content-arrow.gh-collapsable-shown .gh-collapsable-arrow span:last-of-type {
+    transform: rotate(-45deg);
+    transform-origin: unset;
+}

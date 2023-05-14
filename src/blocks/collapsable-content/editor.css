@@ -1,0 +1,19 @@
+.wp-block .gh-collapsable-content:not(.gh-collapsable-shown) {
+    /* opacity: 0.3; */
+    display: inherit;
+}
+
+.gh-collapsable-show-content,
+.gh-collapsable-hide-content {
+    position: absolute;
+    color: grey;
+    right: 0px;
+    top: 0px;
+    height: 20px;
+    z-index: 10;
+}
+
+.gh-collapsable-content-info {
+    margin-left: 8px;
+    font-size: 12px;
+}

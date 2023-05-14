@@ -1,0 +1,3 @@
+.gh-collapsable-content:not(.gh-collapsable-shown) {
+    display: none;
+}

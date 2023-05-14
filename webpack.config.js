@@ -2,7 +2,6 @@
 const wpConfig = require('@wordpress/scripts/config/webpack.config');
 
 // Modified config
-console.log(wpConfig.entry);
 module.exports = {
     // Since whatever object we export from this file will *replace* the default config, we need to
     // make sure to constantly pull in the default values from WordPress's config file
@@ -11,6 +10,7 @@ module.exports = {
     // Point to your main file, wherever it is, which should now be TS
     entry: {
         index: `./src/index.ts`,
+        collapsable: './src/collapsable.js',
         ...wpConfig.entry()
     },
 

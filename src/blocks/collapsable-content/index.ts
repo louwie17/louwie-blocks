@@ -20,6 +20,8 @@ import { registerBlockType } from '@wordpress/blocks';
 import metadata from './block.json';
 import Edit from './edit';
 import Save from './save';
+import './editor.css';
+import './style.css';
 
 /**
  * Every block starts by registering a new block type definition.
