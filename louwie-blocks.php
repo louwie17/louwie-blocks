@@ -20,12 +20,12 @@
  *
  * @see https://developer.wordpress.org/reference/functions/register_block_type/
  */
-function create_block_louwie_blocks_block_init() {
+function louwie_blocks_create_block_block_init() {
 	register_block_type( __DIR__ . '/build/blocks/dashicon' );
 	register_block_type( __DIR__ . '/build/blocks/collapsable-content' );
 	register_block_type( __DIR__ . '/build/blocks/collapsable-toggle' );
 }
-add_action( 'init', 'create_block_louwie_blocks_block_init' );
+add_action( 'init', 'louwie_blocks_create_block_block_init' );
 
 function louwie_blocks_enqueue_editor_assets() {
     wp_enqueue_script(
@@ -34,3 +34,18 @@ function louwie_blocks_enqueue_editor_assets() {
     );
 }
 add_action( 'enqueue_block_editor_assets', 'louwie_blocks_enqueue_editor_assets' );
+
+add_filter( 'render_block', function( $block_content, $block ) {
+	// Make sure we have the blockName.
+	if ( empty( $block['blockName'] ) ) {
+		return $block_content;
+	}
+
+	// If this is a dashicon block, enqueue the dashicons script.
+	if ( 'louwie-blocks/dashicon' === $block['blockName'] ) {
+        wp_enqueue_style('dashicons');
+	}
+
+	// Return the block content.
+	return $block_content;
+}, 10, 2 );

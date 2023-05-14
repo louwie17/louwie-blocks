@@ -14,12 +14,15 @@
         "size": {
             "type": "number"
         },
-        "arrowColor": {
+        "iconColor": {
             "type": "string"
         },
         "alignment": {
             "type": "string",
             "default": "none"
+        },
+        "iconKey": {
+            "type": "string"
         }
     },
     "textdomain": "louwie-blocks",

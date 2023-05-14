@@ -1,5 +1,5 @@
 import { Dashicon } from "@wordpress/components";
-import { alignmentMap } from "./shared";
+import { alignmentMap, iconKeys } from "./shared";
 import { DashiconAttributes } from "./types";
 
 export default function save(props: { attributes: DashiconAttributes; className: string }) {
@@ -9,10 +9,10 @@ export default function save(props: { attributes: DashiconAttributes; className:
         'justify-content': alignmentMap[attributes.alignment]
     };
 
-    var arrowStyles = {
-        color: props.attributes.arrowColor,
+    var iconStyles = {
+        color: props.attributes.iconColor,
     };
-    return <div style={{ ...blockStyle, ...arrowStyles }} className={props.className}>
-        <Dashicon icon="arrow-down-alt" size={attributes.size || 20} />
+    return <div style={{ ...blockStyle, ...iconStyles }} className={props.className}>
+        <Dashicon icon={attributes.iconKey || iconKeys[0]} size={attributes.size || 20} />
     </div>;
 }

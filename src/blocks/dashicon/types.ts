@@ -1,5 +1,10 @@
+import { iconKeys } from "./shared";
+
+export type IconKey = typeof iconKeys[number];
+
 export type DashiconAttributes = {
     size: number;
-    arrowColor: string;
-    alignment: 'center' | 'right' | 'left'
+    iconColor: string;
+    alignment: 'center' | 'right' | 'left',
+    iconKey?: IconKey;
 }
