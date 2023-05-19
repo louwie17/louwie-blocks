@@ -20,6 +20,7 @@ import { registerBlockType } from '@wordpress/blocks';
 import metadata from './block.json';
 import Edit from './edit';
 import Save from './save';
+import icon from './icon';
 import './editor.css';
 import './style.css';
 
@@ -30,6 +31,7 @@ import './style.css';
  */
 registerBlockType(metadata.name, {
     ...metadata,
+    icon,
     /**
      * @see ./edit.js
      */

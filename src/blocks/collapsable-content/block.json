@@ -5,7 +5,6 @@
     "version": "0.1.0",
     "title": "Collapsable Content",
     "category": "layout",
-    "icon": "smiley",
     "description": "Collapsable content.",
     "supports": {
         "html": false,

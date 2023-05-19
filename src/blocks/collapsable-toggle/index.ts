@@ -21,6 +21,7 @@ import metadata from './block.json';
 import Edit from './edit';
 import Save from './save';
 import './style.css';
+import icon from './icon';
 
 /**
  * Every block starts by registering a new block type definition.
@@ -29,6 +30,7 @@ import './style.css';
  */
 registerBlockType(metadata.name, {
     ...metadata,
+    icon,
     /**
      * @see ./edit.js
      */
