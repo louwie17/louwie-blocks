@@ -3,24 +3,25 @@ import { CollapsableContentAttributes } from "./types";
 import { CLASS_ID_CONTENT, CLASS_ID_GROUP_PREFIX, CLASS_ID_PREFIX } from "./constants";
 import { useSelect } from "@wordpress/data";
 import { BlockControls, InnerBlocks, InspectorControls, useBlockProps } from "@wordpress/block-editor";
-import { TextControl, ToolbarButton, ToolbarGroup } from "@wordpress/components";
+import { TextControl, ToggleControl, ToolbarButton, ToolbarGroup } from "@wordpress/components";
 
 export default function (props: { attributes: CollapsableContentAttributes, setAttributes: (attr: CollapsableContentAttributes) => void }) {
-    const [showContent, setShowContent] = useState(false);
+    const attributes = props.attributes;
+    const [showContent, setShowContent] = useState(attributes.showOnToggle ? false : true);
     const { activeId } = useSelect((select) => {
         const collapsable: { getActiveId: () => string } = select('louwie/collapsable');
         return {
             activeId: collapsable.getActiveId()
         };
     }, []);
-    var attributes = props.attributes;
+
     useEffect(() => {
-        if (activeId === props.attributes.id) {
-            setShowContent(true);
+        if (activeId === attributes.id) {
+            setShowContent(attributes.showOnToggle ? true : false);
         } else {
-            setShowContent(false);
+            setShowContent(attributes.showOnToggle ? false : true);
         }
-    }, [activeId, props.attributes.id]);
+    }, [activeId, props.attributes.id, attributes.showOnToggle]);
     let classNames = attributes.className || '';
     if (attributes.id) {
         classNames += ' ' + CLASS_ID_CONTENT;
@@ -52,10 +53,16 @@ export default function (props: { attributes: CollapsableContentAttributes, setA
                     onChange={(value) => props.setAttributes({ ...attributes, group: value.replace(/[^A-Z0-9]+/ig, "-") })}
                     value={attributes.group || ''}
                 />
+                <ToggleControl
+                    label="Show on toggle"
+                    help={attributes.showOnToggle ? "Yes" : "No"}
+                    checked={attributes.showOnToggle}
+                    onChange={() => props.setAttributes({ ...attributes, showOnToggle: !attributes.showOnToggle })}
+                />
             </InspectorControls>
         </BlockControls>
-        <div {...useBlockProps({ className: classNames })}>
-            {showContent ? <InnerBlocks /> : <p>Collapsable content <span className="gh-collapsable-content-info">{`( id: ${attributes.id}, group: ${attributes.group} )`}</span></p>}
+        <div {...useBlockProps({ className: classNames, style: { display: 'inherit' } })}>
+            {showContent ? <InnerBlocks /> : <p><i>Collapsable content</i> <span className="gh-collapsable-content-info">{`( id: ${attributes.id}, group: ${attributes.group} )`}</span></p>}
         </div>
     </>;
 }

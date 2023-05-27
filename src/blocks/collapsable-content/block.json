@@ -32,6 +32,10 @@
         "group": {
             "type": "string",
             "default": ""
+        },
+        "showOnToggle": {
+            "type": "boolean",
+            "default": true
         }
     },
     "textdomain": "louwie-blocks",

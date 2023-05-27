@@ -10,7 +10,7 @@ module.exports = {
     // Point to your main file, wherever it is, which should now be TS
     entry: {
         index: `./src/index.ts`,
-        collapsable: './src/collapsable.js',
+        collapsable: './src/collapsable.ts',
         ...wpConfig.entry()
     },
 
