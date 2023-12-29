@@ -35,6 +35,7 @@ export default function (props: { attributes: CollapsableContentAttributes, setA
         <BlockControls key="controls" controls={[]}>
             <ToolbarGroup>
                 <ToolbarButton
+                    placeholder=''
                     disabled={!attributes.id}
                     label={showContent ? 'Hide content' : 'Show content'}
                     showTooltip={true}

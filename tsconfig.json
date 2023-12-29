@@ -8,6 +8,11 @@
         "allowJs": true,
         "moduleResolution": "node",
         "resolveJsonModule": true,
-        "allowSyntheticDefaultImports": true
+        "allowSyntheticDefaultImports": true,
+        "typeRoots": [
+            "./typings",
+            "./node_modules/@types",
+            "./node_modules/**/build-types",
+        ],
     }
 }
