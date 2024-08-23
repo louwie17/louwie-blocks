@@ -4,6 +4,7 @@ import { CLASS_ID_CONTENT, CLASS_ID_GROUP_PREFIX, CLASS_ID_PREFIX } from "./cons
 import { useSelect } from "@wordpress/data";
 import { BlockControls, InnerBlocks, InspectorControls, useBlockProps } from "@wordpress/block-editor";
 import { TextControl, ToggleControl, ToolbarButton, ToolbarGroup } from "@wordpress/components";
+import { useEntityProp } from '@wordpress/core-data';
 
 export default function (props: { attributes: CollapsableContentAttributes, setAttributes: (attr: CollapsableContentAttributes) => void }) {
     const attributes = props.attributes;
@@ -14,6 +15,11 @@ export default function (props: { attributes: CollapsableContentAttributes, setA
             activeId: collapsable.getActiveId()
         };
     }, []);
+    const postType = useSelect(
+        (select) => select('core/editor').getCurrentPostType(),
+        []
+    );
+    const [meta] = useEntityProp('postType', postType, 'meta');
 
     useEffect(() => {
         if (activeId === attributes.id) {
@@ -30,6 +36,7 @@ export default function (props: { attributes: CollapsableContentAttributes, setA
     if (attributes.group) {
         classNames += ' ' + CLASS_ID_GROUP_PREFIX + attributes.group.replace(/[^A-Z0-9]+/ig, "-");
     }
+    console.log(meta);
 
     return <>
         <BlockControls key="controls" controls={[]}>
@@ -44,6 +51,9 @@ export default function (props: { attributes: CollapsableContentAttributes, setA
                 />
             </ToolbarGroup>
             <InspectorControls>
+                <ul>
+                    {(meta?.louwie_collapsable_ids || []).map(test => (<li key={test.id}>{test.id}</li>))}
+                </ul>
                 <TextControl
                     label="Id"
                     onChange={(value) => props.setAttributes({ ...attributes, id: value.replace(/[^A-Z0-9]+/ig, "-") })}

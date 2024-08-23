@@ -24,6 +24,43 @@ function louwie_blocks_create_block_block_init() {
 	register_block_type( __DIR__ . '/build/blocks/dashicon' );
 	register_block_type( __DIR__ . '/build/blocks/collapsable-content' );
 	register_block_type( __DIR__ . '/build/blocks/collapsable-toggle' );
+
+	foreach ( array( 'post', 'page' ) as $post_type ) {
+		register_post_meta($post_type, 'louwie_collapsable_ids', [
+			'show_in_rest' => true,
+			'single' => true,
+			'type' => 'array',
+			'revisions_enabled' => true,
+			'show_in_rest' => array(
+				'schema' => array(
+					'type'  => 'array',
+					'items' => array(
+						'type' => 'object',
+						'properties'           => array(
+							'id' => array(
+								'description'  => esc_html__( 'Unique identifier for the object.', 'my-textdomain' ),
+								'type'         => 'string',
+								'context'      => array( 'view', 'edit', 'embed' ),
+								'readonly'     => true,
+							),
+							'clientId' => array(
+								'description'  => esc_html__( 'Unique block id.', 'my-textdomain' ),
+								'type'         => 'string',
+								'context'      => array( 'view', 'edit', 'embed' ),
+								'readonly'     => true,
+							),
+						),
+					),
+				),
+			),
+		]);
+		register_post_meta($post_type, 'louwie_collapsable_groups', [
+			'show_in_rest' => true,
+			'single' => false,
+			'type' => 'array',
+			'revisions_enabled' => true,
+		]);
+	}
 }
 add_action( 'init', 'louwie_blocks_create_block_block_init' );
 

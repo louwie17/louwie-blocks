@@ -2,9 +2,10 @@ import { CollapsableToggleAttributes } from "./types";
 import { ARROW_CLASS, CLASS_ID_GROUP_PREFIX, CLASS_ID_PREFIX, CLASS_ID_TOGGLE } from "./constants";
 import { useDispatch, useSelect } from "@wordpress/data";
 import { BlockControls, InnerBlocks, InspectorControls, PanelColorSettings, useBlockProps } from "@wordpress/block-editor";
+import { useEntityProp } from '@wordpress/core-data';
 import { TextControl, ToggleControl, ToolbarButton, ToolbarGroup } from "@wordpress/components";
 
-export default function (props: { attributes: CollapsableToggleAttributes, setAttributes: (attr: CollapsableToggleAttributes) => void }) {
+export default function (props: { attributes: CollapsableToggleAttributes, setAttributes: (attr: CollapsableToggleAttributes) => void, clientId: string }) {
     const { setActiveId } = useDispatch('louwie/collapsable');
     const { activeId } = useSelect((select) => {
         const collapsable: { getActiveId: () => string } = select('louwie/collapsable');
@@ -12,6 +13,18 @@ export default function (props: { attributes: CollapsableToggleAttributes, setAt
             activeId: collapsable.getActiveId()
         };
     }, []);
+    const postType = useSelect(
+        (select) => select('core/editor').getCurrentPostType(),
+        []
+    );
+    const [meta, setMeta] = useEntityProp('postType', postType, 'meta');
+
+    function setId(id: string) {
+        const parsedId = id.replace(/[^A-Z0-9]+/ig, "-");
+        const newIds = [...(meta?.louwie_collapsable_ids || []).filter(data => data.clientId !== props.clientId || !data.clientId)];
+        props.setAttributes({ ...attributes, id: parsedId });
+        setMeta({ ...(meta || {}), louwie_collapsable_ids: [...newIds, { clientId: props.clientId, id: parsedId }] });
+    }
     var attributes = props.attributes;
     let classNames = attributes.className || '';
     if (attributes.id) {
@@ -42,7 +55,7 @@ export default function (props: { attributes: CollapsableToggleAttributes, setAt
             <InspectorControls>
                 <TextControl
                     label="Id"
-                    onChange={(value) => props.setAttributes({ ...attributes, id: value.replace(/[^A-Z0-9]+/ig, "-") })}
+                    onChange={setId}
                     value={attributes.id || ''}
                 />
                 <TextControl
