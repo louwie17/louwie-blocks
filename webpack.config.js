@@ -1,8 +1,8 @@
 // This comes from https://github.com/WordPress/gutenberg/blob/trunk/packages/scripts/config/webpack.config.js
-const wpConfig = require('@wordpress/scripts/config/webpack.config');
+const wpConfigList = require('@wordpress/scripts/config/webpack.config');
 
 // Modified config
-module.exports = {
+module.exports = wpConfigList.map((wpConfig) => ({
     // Since whatever object we export from this file will *replace* the default config, we need to
     // make sure to constantly pull in the default values from WordPress's config file
     ...wpConfig,
@@ -10,7 +10,6 @@ module.exports = {
     // Point to your main file, wherever it is, which should now be TS
     entry: {
         index: `./src/index.ts`,
-        collapsable: './src/collapsable.ts',
         ...wpConfig.entry()
     },
 
@@ -44,4 +43,4 @@ module.exports = {
     resolve: {
         extensions: ['.ts', '.tsx', ...(wpConfig.resolve ? wpConfig.resolve.extensions || ['.js', '.jsx'] : [])],
     },
-}
+}));

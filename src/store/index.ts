@@ -38,5 +38,4 @@ export const storeConfig = {
  */
 export const store = createReduxStore(STORE_NAME, storeConfig);
 
-console.log('registering store');
 register(store);

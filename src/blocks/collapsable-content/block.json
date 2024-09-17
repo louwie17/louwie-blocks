@@ -8,6 +8,7 @@
     "description": "Collapsable content.",
     "supports": {
         "html": false,
+        "interactivity": true,
         "__experimentalOnEnter": true,
         "__experimentalSettings": true,
         "align": [
@@ -41,5 +42,7 @@
     "textdomain": "louwie-blocks",
     "editorScript": "file:./index.js",
     "editorStyle": "file:./index.css",
-    "style": "file:./style-index.css"
+    "style": "file:./style-index.css",
+    "render": "file:./render.php",
+    "viewScriptModule": "file:./view.js"
 }
